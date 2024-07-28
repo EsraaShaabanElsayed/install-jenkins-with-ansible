@@ -1,0 +1,5 @@
+---
+- name: RestartJenkins
+  systemd:
+   name: jenkins
+   state: restarted

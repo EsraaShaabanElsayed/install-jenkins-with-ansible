@@ -1,0 +1,9 @@
+---
+- name:  InstallAndConguireJenkins
+  hosts: servers
+  become: yes
+  roles:
+  - InstallJava 
+  - AddJenkinsRepo-Key
+  - InstallJenkins
+  - EnableJenkins

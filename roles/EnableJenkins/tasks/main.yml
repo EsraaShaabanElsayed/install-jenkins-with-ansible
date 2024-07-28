@@ -1,0 +1,9 @@
+---
+- name: EnableJenkins
+  systemd:
+     name: jenkins
+     enabled: yes
+     state: started
+
+  notify: RestartJenkins
+

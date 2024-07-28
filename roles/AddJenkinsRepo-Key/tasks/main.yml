@@ -1,0 +1,12 @@
+---
+- name: AddJenkinsKey
+  ansible.builtin.shell: wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | apt-key add -
+  
+- name: AddJenkinsRepository
+  apt_repository:
+    repo: deb http://pkg.jenkins.io/debian-stable binary/
+    state: present 
+- name: updateAptCache
+  apt:
+    update_cache: yes
+

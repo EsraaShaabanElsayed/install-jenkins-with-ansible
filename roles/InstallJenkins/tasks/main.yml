@@ -1,0 +1,6 @@
+---
+- name: InstallJenkins
+  apt: 
+   name: jenkins
+   state: present
+
