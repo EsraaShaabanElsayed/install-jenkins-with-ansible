@@ -1,54 +1,90 @@
-Here's the `README.md` content in a single markdown block:
+# Jenkins Ansible Playbook
 
-```markdown
-# Install Jenkins with Ansible
+This repository contains an Ansible playbook designed to install and configure Jenkins on target servers. The playbook automates the setup process, ensuring that Jenkins is installed with the necessary dependencies and configured for immediate use.
 
-## Overview
-This repository contains an Ansible playbook to install and configure Jenkins on a remote server. The playbook ensures that Java is installed, Jenkins directories have the correct permissions, and Jenkins runs on the default port (8080).
+## Table of Contents
 
+- [Introduction](#introduction)
+- [Requirements](#requirements)
+- [Inventory](#inventory)
+- [Playbook Structure](#playbook-structure)
+- [Roles](#roles)
+  - [InstallJava](#installjava)
+  - [AddJenkinsRepo-Key](#addjenkinsrepo-key)
+  - [InstallJenkins](#installjenkins)
+  - [EnableJenkins](#enablejenkins)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Files
-- `change_jenkins_port.yml`: Contains the main Ansible playbook that installs Java, sets up Jenkins, and ensures Jenkins runs on port 8080.
-- `inventory`: Lists the remote servers where the playbook will be executed.
-- `README.md`: Provides an overview and setup instructions.
+## Introduction
 
-## Setup Instructions
+This playbook is used to automate the installation and configuration of Jenkins on target servers. It ensures that all necessary dependencies are installed and Jenkins is properly set up and enabled to run.
 
-### Clone the Repository:
-```sh
-git clone https://github.com/your-username/install-jenkins-with-ansible.git
-cd install-jenkins-with-ansible
+## Requirements
+
+- Ansible 2.9+
+- Target servers running a supported Linux distribution (e.g., Ubuntu, CentOS)
+- SSH access to the target servers with a user that has sudo privileges
+
+## Inventory
+
+Define your target servers in the `inventory` file. Example:
+
 ```
-
-### Update the Inventory File:
-Modify the `inventory` file to include the IP address or hostname of your remote server.
-
-### Run the Playbook:
-```sh
-ansible-playbook -i inventory change_jenkins_port.yml
-```
-Ensure you have the necessary permissions to run the playbook with `sudo`.
-
-## Inventory Example
-
-Create an `inventory` file to list your target servers:
-
-```ini
 [servers]
-your_server_ip ansible_user=your_username ansible_ssh_private_key_file=~/.ssh/id_rsa
+server1 ansible_host=192.168.1.10 ansible_user=your_user
+server2 ansible_host=192.168.1.11 ansible_user=your_user
 ```
-Replace `your_server_ip`, `your_username`, and the path to your SSH private key file as needed.
 
-## Playbook Details
+## Playbook Structure
 
-The playbook performs the following tasks:
+- `installJenkins.yml`: The main playbook file that orchestrates the Jenkins installation and configuration.
+- `roles/`: Directory containing all the roles used by the playbook.
+  - `InstallJava/`
+    - `tasks/`: Contains the task files for installing Java.
+      - `main.yml`: Main task file for the role.
+  - `AddJenkinsRepo-Key/`
+    - `tasks/`: Contains the task files for adding the Jenkins repository and GPG key.
+      - `main.yml`: Main task file for the role.
+  - `InstallJenkins/`
+    - `tasks/`: Contains the task files for installing Jenkins.
+      - `main.yml`: Main task file for the role.
+  - `EnableJenkins/`
+    - `tasks/`: Contains the task files for enabling and starting the Jenkins service.
+      - `main.yml`: Main task file for the role.
+- `inventory`: Inventory file specifying the target servers.
 
-1. **Install OpenJDK 11**:
-    - Ensures OpenJDK 11 is installed on the server.
-2. **Ensure Jenkins Directories Have Correct Permissions**:
-    - Adjusts the ownership of Jenkins directories to the `jenkins` user and group.
-3. **Reinstall Jenkins**:
-    - Ensures Jenkins is installed and up to date.
-4. **Restart Jenkins Service**:
-    - Restarts the Jenkins service to apply the changes.
+## Roles
+
+### InstallJava
+
+This role installs the Java runtime environment required by Jenkins.
+
+### AddJenkinsRepo-Key
+
+This role adds the Jenkins repository and its GPG key to the target servers.
+
+### InstallJenkins
+
+This role installs Jenkins from the official Jenkins repository.
+
+### EnableJenkins
+
+This role enables and starts the Jenkins service, ensuring it is running and enabled on boot.
+
+## Usage
+
+1. Clone this repository:
+    ```bash
+    git clone <repository_url>
+    cd jenkinsPlaybook
+    ```
+
+2. Update the `inventory` file with your target server details.
+
+3. Run the playbook:
+    ```bash
+    ansible-playbook -i inventory installJenkins.yml
+    ```
 
