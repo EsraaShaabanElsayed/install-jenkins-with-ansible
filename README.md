@@ -1,4 +1,4 @@
-Sure! Here is a `README.md` file that fits the format you provided, with all necessary details about your Jenkins setup using Ansible:
+Here's the `README.md` content in a single markdown block:
 
 ```markdown
 # Install Jenkins with Ansible
@@ -6,13 +6,6 @@ Sure! Here is a `README.md` file that fits the format you provided, with all nec
 ## Overview
 This repository contains an Ansible playbook to install and configure Jenkins on a remote server. The playbook ensures that Java is installed, Jenkins directories have the correct permissions, and Jenkins runs on the default port (8080).
 
-## Project Structure
-```
-install-Jenkins-with-ansible/
-├── change_jenkins_port.yml
-├── inventory
-└── README.md
-```
 
 ## Files
 - `change_jenkins_port.yml`: Contains the main Ansible playbook that installs Java, sets up Jenkins, and ensures Jenkins runs on port 8080.
@@ -24,17 +17,17 @@ install-Jenkins-with-ansible/
 ### Clone the Repository:
 ```sh
 git clone https://github.com/your-username/install-jenkins-with-ansible.git
-cd install-Jenkins-with-ansible
+cd install-jenkins-with-ansible
 ```
 
 ### Update the Inventory File:
-Modify the `inventory` file to include your remote server's IP address or hostname.
+Modify the `inventory` file to include the IP address or hostname of your remote server.
 
 ### Run the Playbook:
 ```sh
 ansible-playbook -i inventory change_jenkins_port.yml
 ```
-Ensure you have permission to run the playbook with `sudo`.
+Ensure you have the necessary permissions to run the playbook with `sudo`.
 
 ## Inventory Example
 
@@ -53,17 +46,9 @@ The playbook performs the following tasks:
 1. **Install OpenJDK 11**:
     - Ensures OpenJDK 11 is installed on the server.
 2. **Ensure Jenkins Directories Have Correct Permissions**:
-    - Adjusts the ownership of Jenkins directories to the `Jenkins` user and group.
+    - Adjusts the ownership of Jenkins directories to the `jenkins` user and group.
 3. **Reinstall Jenkins**:
     - Ensures Jenkins is installed and up to date.
 4. **Restart Jenkins Service**:
-    - Restart the Jenkins service to apply the changes.
-
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-- Jenkins: [https://www.jenkins.io/](https://www.jenkins.io/)
-- Ansible: [https://www.ansible.com/](https://www.ansible.com/)
-```
+    - Restarts the Jenkins service to apply the changes.
 
